@@ -35,7 +35,7 @@ async function loadGallery() {
     images.sort(() => Math.random() - 0.5);
 
     // Limit to 16 images
-    images = images.slice(0, 16);
+    images = images.slice(0, 20);
 
     images.forEach((file) => {
       // Outer link → Etsy shop
