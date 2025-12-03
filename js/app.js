@@ -1,33 +1,31 @@
 async function loadGallery() {
   const grid = document.getElementById("pinGrid");
 
-  // CHANGE THESE THREE VALUES TO MATCH YOUR REPO
+  // GitHub repo info
   const owner = "AmesGate";
   const repo = "therestingpinegallery";
   const folder = "images";
 
-  // GitHub API URL for listing folder contents
+  // GitHub API URL
   const apiURL = `https://api.github.com/repos/${owner}/${repo}/contents/${folder}`;
 
   try {
     const res = await fetch(apiURL);
     const files = await res.json();
 
-    // Filter only IMG_XXXX.JPEG (case-insensitive)
+    // Filter for files named IMG_<number>.JPEG or IMG_<number>.JPG
     const images = files.filter(file =>
-      /^IMG_\d+\.jpe?g$/i.test(file.name)
+      /^IMG_\d+\.(jpe?g)$/i.test(file.name)
     );
 
     images.forEach(file => {
-      const url = file.download_url;
-
       const a = document.createElement("a");
       a.className = "pin";
       a.href = "https://www.etsy.com/shop/TheRestingPine";
       a.target = "_blank";
 
       const img = document.createElement("img");
-      img.src = url;
+      img.src = file.download_url;
       img.alt = file.name;
 
       const caption = document.createElement("div");
@@ -48,8 +46,8 @@ async function loadGallery() {
     });
 
   } catch (error) {
-    console.error("Error loading images:", error);
-    grid.innerHTML = "<p style='color:#b0b5c0;'>Unable to load images.</p>";
+    console.error("Error loading gallery:", error);
+    grid.innerHTML = "<p style='color: #b0b5c0;'>Unable to load images.</p>";
   }
 }
 
