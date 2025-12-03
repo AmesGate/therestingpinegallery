@@ -33,7 +33,9 @@ function layoutMasonry() {
     const x = colIndex * (columnWidth + GRID_GAP);
     const y = columnHeights[colIndex];
 
-    card.style.transform = `translate(${x}px, ${y}px)`;
+    // use left/top for layout (not transform)
+    card.style.left = `${x}px`;
+    card.style.top = `${y}px`;
 
     const cardHeight = card.offsetHeight;
     columnHeights[colIndex] = y + cardHeight + GRID_GAP;
