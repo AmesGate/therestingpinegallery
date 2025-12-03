@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <title>The Resting Pine • Wood Slice Ornaments</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <style>
     :root {
       --bg: #111317;
@@ -13,7 +14,11 @@
       --radius: 18px;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -23,6 +28,7 @@
       min-height: 100vh;
     }
 
+    /* Header / banner */
     header {
       position: sticky;
       top: 0;
@@ -43,7 +49,9 @@
       margin: 0 auto;
       display: flex;
       align-items: center;
+      justify-content: center; /* center whole banner */
       gap: 12px;
+      text-align: left;
     }
 
     .logo-circle {
@@ -57,8 +65,9 @@
       font-weight: 700;
       font-size: 18px;
       color: #111317;
-      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.6),
-                  0 10px 20px rgba(0, 0, 0, 0.55);
+      box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.6),
+        0 10px 20px rgba(0, 0, 0, 0.55);
       flex-shrink: 0;
     }
 
@@ -78,6 +87,7 @@
       padding: 16px 12px 40px;
     }
 
+    /* Masonry grid */
     .pin-grid {
       column-count: 5;
       column-gap: 14px;
@@ -120,15 +130,8 @@
       font-size: 0.8rem;
       color: var(--text-muted);
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end; /* only Etsy pill, push to right */
       align-items: center;
-      gap: 6px;
-    }
-
-    .pin-caption span {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     .pin-caption small {
@@ -170,7 +173,7 @@
   </main>
 
   <footer>
-    <p>© <span id="year"></span> The Resting Pine · 
+    <p>© <span id="year"></span> The Resting Pine ·
       <a href="https://www.etsy.com/shop/TheRestingPine" target="_blank" rel="noopener">
         Shop on Etsy
       </a>
