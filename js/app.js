@@ -1,22 +1,35 @@
 async function loadGallery() {
   const grid = document.getElementById("pinGrid");
 
-  // GitHub repo info
   const owner = "AmesGate";
   const repo = "therestingpinegallery";
   const folder = "images";
 
-  // GitHub API URL
   const apiURL = `https://api.github.com/repos/${owner}/${repo}/contents/${folder}`;
 
   try {
     const res = await fetch(apiURL);
+    if (!res.ok) {
+      throw new Error("GitHub API request failed");
+    }
+
     const files = await res.json();
 
-    // Filter for files named IMG_<number>.JPEG or IMG_<number>.JPG
-    const images = files.filter(file =>
+    // Keep only IMG_<number>.JPG / JPEG
+    let images = files.filter(file =>
       /^IMG_\d+\.(jpe?g)$/i.test(file.name)
     );
+
+    if (!images.length) {
+      grid.innerHTML = "<p style='color:#b0b5c0;'>No images found in /images.</p>";
+      return;
+    }
+
+    // Shuffle images
+    shuffle(images);
+
+    // Limit to 16 images
+    images = images.slice(0, 16);
 
     images.forEach(file => {
       const a = document.createElement("a");
@@ -26,18 +39,15 @@ async function loadGallery() {
 
       const img = document.createElement("img");
       img.src = file.download_url;
-      img.alt = file.name;
+      img.alt = "Handmade wood slice ornament";
 
       const caption = document.createElement("div");
       caption.className = "pin-caption";
 
-      const titleSpan = document.createElement("span");
-      titleSpan.textContent = file.name;
-
+      // Only show Etsy button, no filename
       const tag = document.createElement("small");
-      tag.textContent = "etsy →";
+      tag.textContent = "ETSY →";
 
-      caption.appendChild(titleSpan);
       caption.appendChild(tag);
 
       a.appendChild(img);
@@ -47,8 +57,11 @@ async function loadGallery() {
 
   } catch (error) {
     console.error("Error loading gallery:", error);
-    grid.innerHTML = "<p style='color: #b0b5c0;'>Unable to load images.</p>";
+    grid.innerHTML = "<p style='color:#b0b5c0;'>Unable to load images.</p>";
   }
 }
 
-loadGallery();
+// Fisher–Yates shuffle
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math
