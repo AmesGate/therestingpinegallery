@@ -13,6 +13,7 @@
       --text-muted: #b0b5c0;
       --radius: 18px;
       --parallax-offset: 0px;
+      --pine: #7ed9a6;
     }
 
     * {
@@ -61,7 +62,7 @@
         rgba(5, 7, 11, 0.7),
         transparent
       );
-      padding: 12px 18px 10px;
+      padding: 18px 18px 16px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.03);
     }
 
@@ -69,37 +70,81 @@
       max-width: 1200px;
       margin: 0 auto;
       display: flex;
-      align-items: center;
       justify-content: center;
-      gap: 12px;
-      text-align: left;
+      text-align: center;
     }
 
-    .logo-circle {
-      width: 34px;
-      height: 34px;
-      border-radius: 999px;
+    .hero-title-wrap {
+      position: relative;
+      padding: 8px 18px 10px;
+    }
+
+    /* floating glow behind title */
+    .hero-title-wrap::before {
+      content: "";
+      position: absolute;
+      inset: -35% -18%;
       background:
-        radial-gradient(circle at 30% 20%, #f8f5ed 0, #c49c6c 35%, #3c2a1a 100%);
+        radial-gradient(circle at 50% 0%, rgba(126, 217, 166, 0.24), transparent 65%),
+        radial-gradient(circle at 0% 100%, rgba(96, 142, 214, 0.18), transparent 70%);
+      filter: blur(10px);
+      opacity: 0.85;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .title-row {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 700;
-      font-size: 18px;
-      color: #111317;
+      gap: 10px;
+    }
+
+    .title-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at 30% 20%, #f5fff8 0, #7ed9a6 40%, #204129 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
       box-shadow:
-        0 0 0 1px rgba(0, 0, 0, 0.6),
-        0 10px 20px rgba(0, 0, 0, 0.55);
-      flex-shrink: 0;
+        0 0 0 1px rgba(0, 0, 0, 0.55),
+        0 8px 16px rgba(0, 0, 0, 0.7);
+    }
+
+    .title-icon span {
+      transform: translateY(1px);
     }
 
     .title-block h1 {
-      font-size: 1.15rem;
-      letter-spacing: 0.04em;
+      font-size: 2rem;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    /* thin pine-green underline */
+    .title-block h1::after {
+      content: "";
+      display: block;
+      margin: 6px auto 0;
+      width: 130px;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(
+        to right,
+        rgba(126, 217, 166, 0.1),
+        rgba(126, 217, 166, 0.95),
+        rgba(126, 217, 166, 0.1)
+      );
     }
 
     .title-block p {
-      font-size: 0.8rem;
+      margin-top: 6px;
+      font-size: 0.9rem;
       color: var(--text-muted);
     }
 
@@ -193,15 +238,30 @@
       color: var(--accent);
       text-decoration: none;
     }
+
+    @media (max-width: 600px) {
+      .title-block h1 {
+        font-size: 1.6rem;
+      }
+      .title-block h1::after {
+        width: 100px;
+      }
+    }
   </style>
 </head>
 <body>
   <header>
     <div class="header-inner">
-      <div class="logo-circle">P</div>
-      <div class="title-block">
-        <h1>The Resting Pine</h1>
-        <p>Handmade wood slice ornaments • Tap a photo to open on Etsy</p>
+      <div class="hero-title-wrap">
+        <div class="title-block">
+          <div class="title-row">
+            <div class="title-icon" aria-hidden="true">
+              <span>🌲</span>
+            </div>
+            <h1>The Resting Pine</h1>
+          </div>
+          <p>Handmade Rustic Mountain Inspired Decor</p>
+        </div>
       </div>
     </div>
   </header>
