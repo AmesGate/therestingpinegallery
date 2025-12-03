@@ -81,7 +81,7 @@ async function loadGallery() {
     images.sort(() => Math.random() - 0.5);
 
     // limit to 20
-    images = images.slice(0, 20);
+    images = images.slice(0, 30);
     currentImages = images;
 
     let loadedCount = 0;
