@@ -7,7 +7,7 @@
 
   <style>
     :root {
-      --bg: #111317;
+      --bg: #05070b;
       --card-bg: #1b1e24;
       --accent: #f5f1e6;
       --text-muted: #b0b5c0;
@@ -23,9 +23,15 @@
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
         sans-serif;
-      background: radial-gradient(circle at top, #222733 0, #090b10 55%);
       color: #fff;
       min-height: 100vh;
+
+      /* layered background: sky glow + foresty vignette */
+      background:
+        radial-gradient(circle at 10% -10%, #37445a 0, transparent 55%),
+        radial-gradient(circle at 90% 120%, rgba(24, 61, 41, 0.8) 0, transparent 65%),
+        radial-gradient(circle at center, #151822 0, #05070b 65%, #020308 100%);
+      background-attachment: fixed;
     }
 
     /* Header / banner */
@@ -36,8 +42,8 @@
       backdrop-filter: blur(12px);
       background: linear-gradient(
         to bottom,
-        rgba(9, 11, 16, 0.96),
-        rgba(9, 11, 16, 0.7),
+        rgba(5, 7, 11, 0.96),
+        rgba(5, 7, 11, 0.7),
         transparent
       );
       padding: 12px 18px 10px;
@@ -58,7 +64,8 @@
       width: 34px;
       height: 34px;
       border-radius: 999px;
-      background: radial-gradient(circle at 30% 20%, #f8f5ed 0, #c49c6c 35%, #3c2a1a 100%);
+      background:
+        radial-gradient(circle at 30% 20%, #f8f5ed 0, #c49c6c 35%, #3c2a1a 100%);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -81,28 +88,28 @@
       color: var(--text-muted);
     }
 
+    /* Main container + centered grid */
     main {
       max-width: 1200px;
       margin: 0 auto;
       padding: 16px 12px 40px;
       display: flex;
-      justify-content: center;      /* center children horizontally */
+      justify-content: center; /* center children horizontally */
     }
-    
-    /* masonry grid */
+
     .pin-grid {
       column-count: 5;
       column-gap: 14px;
-      max-width: 1100px;            /* keep the grid itself narrower */
-      width: 100%;                  /* responsive within that max-width */
+      max-width: 1100px;
+      width: 100%;
     }
-
 
     @media (max-width: 1100px) { .pin-grid { column-count: 4; } }
     @media (max-width: 900px)  { .pin-grid { column-count: 3; } }
     @media (max-width: 650px)  { .pin-grid { column-count: 2; } }
     @media (max-width: 480px)  { .pin-grid { column-count: 1; } }
 
+    /* Card */
     .pin {
       display: inline-block;
       margin: 0 0 14px;
@@ -115,6 +122,18 @@
       color: inherit;
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.55);
       transition: transform 130ms ease-out, box-shadow 130ms ease-out;
+
+      /* fade-in animation */
+      opacity: 0;
+      transform: translateY(8px);
+      animation: pinFadeIn 260ms ease-out forwards;
+    }
+
+    @keyframes pinFadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .pin img {
@@ -135,7 +154,7 @@
       font-size: 0.8rem;
       color: var(--text-muted);
       display: flex;
-      justify-content: flex-end; /* only Etsy pill, push to right */
+      justify-content: flex-end; /* only ETSY pill, push to right */
       align-items: center;
     }
 
