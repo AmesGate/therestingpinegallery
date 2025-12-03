@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>The Resting Pine • Wood Slice Ornaments</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #111317;
+      --card-bg: #1b1e24;
+      --accent: #f5f1e6;
+      --text-muted: #b0b5c0;
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #222733 0, #090b10 55%);
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(
+        to bottom,
+        rgba(9, 11, 16, 0.96),
+        rgba(9, 11, 16, 0.7),
+        transparent
+      );
+      padding: 12px 18px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-circle {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #f8f5ed 0, #c49c6c 35%, #3c2a1a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 18px;
+      color: #111317;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.6),
+                  0 10px 20px rgba(0, 0, 0, 0.55);
+      flex-shrink: 0;
+    }
+
+    .title-block h1 {
+      font-size: 1.15rem;
+      letter-spacing: 0.04em;
+    }
+
+    .title-block p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 12px 40px;
+    }
+
+    .pin-grid {
+      column-count: 5;
+      column-gap: 14px;
+    }
+
+    @media (max-width: 1100px) { .pin-grid { column-count: 4; } }
+    @media (max-width: 900px)  { .pin-grid { column-count: 3; } }
+    @media (max-width: 650px)  { .pin-grid { column-count: 2; } }
+    @media (max-width: 480px)  { .pin-grid { column-count: 1; } }
+
+    .pin {
+      display: inline-block;
+      margin: 0 0 14px;
+      width: 100%;
+      border-radius: var(--radius);
+      background: var(--card-bg);
+      overflow: hidden;
+      position: relative;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.55);
+      transition: transform 130ms ease-out, box-shadow 130ms ease-out;
+    }
+
+    .pin img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      vertical-align: middle;
+    }
+
+    .pin:hover {
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.7);
+    }
+
+    .pin-caption {
+      padding: 8px 10px 9px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pin-caption span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .pin-caption small {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px 0 8px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo-circle">P</div>
+      <div class="title-block">
+        <h1>The Resting Pine</h1>
+        <p>Handmade wood slice ornaments • Tap a photo to open on Etsy</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="pinGrid" class="pin-grid"></section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> The Resting Pine · 
+      <a href="https://www.etsy.com/shop/TheRestingPine" target="_blank" rel="noopener">
+        Shop on Etsy
+      </a>
+    </p>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
