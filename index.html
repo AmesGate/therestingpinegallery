@@ -12,6 +12,7 @@
       --accent: #f5f1e6;
       --text-muted: #b0b5c0;
       --radius: 18px;
+      --parallax-offset: 0px;
     }
 
     * {
@@ -25,13 +26,27 @@
         sans-serif;
       color: #fff;
       min-height: 100vh;
+      position: relative;
 
-      /* layered background: sky glow + foresty vignette */
+      /* base background */
       background:
-        radial-gradient(circle at 10% -10%, #37445a 0, transparent 55%),
-        radial-gradient(circle at 90% 120%, rgba(24, 61, 41, 0.8) 0, transparent 65%),
         radial-gradient(circle at center, #151822 0, #05070b 65%, #020308 100%);
       background-attachment: fixed;
+    }
+
+    /* soft parallax overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -12%;
+      pointer-events: none;
+      z-index: -1;
+      background:
+        radial-gradient(circle at 10% -10%, rgba(76, 94, 130, 0.6) 0, transparent 55%),
+        radial-gradient(circle at 90% 120%, rgba(24, 61, 41, 0.85) 0, transparent 65%);
+      transform: translateY(var(--parallax-offset));
+      will-change: transform;
+      transition: transform 60ms linear;
     }
 
     /* Header / banner */
@@ -55,7 +70,7 @@
       margin: 0 auto;
       display: flex;
       align-items: center;
-      justify-content: center; /* center whole banner */
+      justify-content: center;
       gap: 12px;
       text-align: left;
     }
@@ -94,41 +109,36 @@
       margin: 0 auto;
       padding: 16px 12px 40px;
       display: flex;
-      justify-content: center; /* center children horizontally */
+      justify-content: center;
     }
 
     .pin-grid {
-      column-count: 5;
-      column-gap: 14px;
+      position: relative;      /* for absolute-positioned cards */
       max-width: 1100px;
       width: 100%;
     }
 
-    @media (max-width: 1100px) { .pin-grid { column-count: 4; } }
-    @media (max-width: 900px)  { .pin-grid { column-count: 3; } }
-    @media (max-width: 650px)  { .pin-grid { column-count: 2; } }
-    @media (max-width: 480px)  { .pin-grid { column-count: 1; } }
-
-    /* Card */
+    /* Card base */
     .pin {
-      display: inline-block;
-      margin: 0 0 14px;
-      width: 100%;
+      position: absolute;
       border-radius: var(--radius);
       background: var(--card-bg);
       overflow: hidden;
-      position: relative;
       text-decoration: none;
       color: inherit;
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.55);
-      transition: transform 130ms ease-out, box-shadow 130ms ease-out;
+      transition:
+        transform 130ms ease-out,
+        box-shadow 130ms ease-out,
+        box-shadow 180ms ease-out;
 
-      /* fade-in animation */
+      /* fade-in + stagger base state */
       opacity: 0;
       transform: translateY(8px);
       animation: pinFadeIn 260ms ease-out forwards;
     }
 
+    /* fade-in keyframes */
     @keyframes pinFadeIn {
       to {
         opacity: 1;
@@ -144,9 +154,13 @@
       vertical-align: middle;
     }
 
+    /* hover glow */
     .pin:hover {
       transform: translateY(-3px) scale(1.01);
-      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.7);
+      box-shadow:
+        0 0 0 1px rgba(132, 207, 172, 0.35),
+        0 0 22px rgba(76, 163, 122, 0.55),
+        0 18px 32px rgba(0, 0, 0, 0.7);
     }
 
     .pin-caption {
@@ -154,7 +168,7 @@
       font-size: 0.8rem;
       color: var(--text-muted);
       display: flex;
-      justify-content: flex-end; /* only ETSY pill, push to right */
+      justify-content: flex-end;
       align-items: center;
     }
 
@@ -206,6 +220,7 @@
 
   <script src="js/app.js"></script>
   <script>
+    // footer year
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
